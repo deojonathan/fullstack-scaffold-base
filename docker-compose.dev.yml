@@ -1,0 +1,24 @@
+# This contains overrides on top of docker-compose for "dev" enviroment.
+# To load this file upon call to `up`, simply specify using "-f" argument:
+#   e.g. `docker-compose up -f docker-compose.yml -f docker-commpose.dev.yml`
+version: "3.8"
+services:
+  api:
+    command: gunicorn --bind 0.0.0.0:80 -w 4 --reload app:app
+    volumes:
+      - ./api/app:/usr/src/app
+    ports:
+      - "8081:80"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend/app/src:/usr/src/app/src
+    ports:
+      - "8080:80"
+    #
+    # This is the equivalent of `ng serve`
+    #
+    command: npm run start -- --host --poll 500 --port 80

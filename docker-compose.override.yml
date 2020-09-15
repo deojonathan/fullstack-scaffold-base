@@ -1,0 +1,17 @@
+# This contains override configurations on top of docker-compose.yml.
+# By default this is always read by docker-compose everytime "up" is called.
+version: "3.8"
+
+# For convenience, this should only contain "prod" configurations, so we can
+# isolate them as the default configurations every time we run "up".
+# As for "dev" configurations, see "docker-compose.dev.yml"
+services:
+  api:
+    command: gunicorn --bind 0.0.0.0:80 -w 4 app:app
+
+  frontend:
+    build: ./frontend
+    # Prevent docker from self-daemonizing at runtime, and stay in the
+    # foreground; otherwise, the container will stop immediately after
+    # starting.
+    entrypoint: ["nginx", "-g", "daemon off;"]

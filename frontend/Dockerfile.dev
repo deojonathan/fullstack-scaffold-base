@@ -1,0 +1,9 @@
+FROM node:alpine AS build-stage
+WORKDIR /usr/src/app
+
+COPY app/package*.json ./
+COPY app/angular.json ./
+COPY app/tsconfig*.json ./
+
+RUN npm install
+COPY app/src/ ./src/
