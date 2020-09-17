@@ -2,7 +2,6 @@ version: "3.8"
 
 services:
   proxy:
-    build: ./proxy
     # Prevent docker from self-daemonizing at runtime, and stay in the
     # foreground; otherwise, the container will stop immediately after
     # starting.
@@ -13,7 +12,6 @@ services:
       - "80:80"
 
   api:
-    build: ./api
     expose:
       - 80
 

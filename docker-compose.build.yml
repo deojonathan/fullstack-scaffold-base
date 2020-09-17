@@ -1,0 +1,21 @@
+# Docker compose for building all images.
+# This can be used for building production-ready images
+# and for pushing images to Docker Hub Repo
+#
+# Example usage:
+# docker-compose -f docker-compose.build.yml build
+# docker-compose -f docker-compose.build.yml push
+#
+version: "3.8"
+services:
+  proxy:
+    image: deojonathan/scaffold:proxy-latest
+    build: ./proxy
+
+  api:
+    image: deojonathan/scaffold:api-latest
+    build: ./api
+
+  frontend:
+    image: deojonathan/scaffold:frontend-latest
+    build: ./frontend
